@@ -1,11 +1,15 @@
 import { createContext, useEffect, useState } from "react";
+import dark from '../img/dark.png';
+import light from '../img/light.jpg';
 
 const themes = {
     dark: {
+        backgroundImage: `url(${dark})`,
         backgroundColor: 'black',
         color: 'white'
     },
     light: {
+        backgroundImage: `url(${light})`,
         backgroundColor: 'white',
         color: 'black'
     }

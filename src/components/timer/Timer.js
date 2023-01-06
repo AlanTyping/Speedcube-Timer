@@ -1,5 +1,6 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import Display from './display';
+import { ThemeContext } from '../../contexts/theme';
 
 let array = [];
 let results;
@@ -8,6 +9,8 @@ export const Orange = createContext();
 export const Blue = createContext();
 
 export function Timer() {
+
+    const [{theme}] = useContext(ThemeContext);
 
     const [time, setTime] = useState({ mms: 0, ms: 0, s: 0, m: 0 });
     const [st, setSt] = useState({ s: 0 }); //set spacebar time
@@ -158,7 +161,8 @@ export function Timer() {
     }, []);
 
     return (
-        <div className='container'>
+        <div className='container' style={{
+            backgroundImage: theme.backgroundImage}}>
             {showResults ?
                 <div className='avrg'>
                     <div className='result'>

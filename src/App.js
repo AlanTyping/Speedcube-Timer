@@ -8,7 +8,10 @@ import { Timer } from './components/timer/Timer';
 function App() {
   const [{theme}] = useContext(ThemeContext);
   return (
-    <div className="App" style={{backgroundColor: theme.backgroundColor, color: theme.color}}>
+    <div className="App" style={{
+      backgroundColor: theme.backgroundColor,
+      color: theme.color,
+      }}>
       <Header />
       <Timer />
     </div>
