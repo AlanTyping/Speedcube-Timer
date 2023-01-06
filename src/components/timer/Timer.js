@@ -161,8 +161,9 @@ export function Timer() {
     }, []);
 
     return (
-        <div className='container' style={{
-            backgroundImage: theme.backgroundImage}}>
+        <div className='container' 
+        //  style={{ backgroundImage: theme.backgroundImage}}
+         >
             {showResults ?
                 <div className='avrg'>
                     <div className='result'>

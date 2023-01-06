@@ -53,6 +53,11 @@ body {
   cursor: pointer;
 }
 
+.header-div img {
+  height: 40px;
+  width: 40px;
+}
+
 .container {
   height: 100vh;
   width: 80%;
@@ -62,7 +67,6 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: rgba(0,0,0,0.5);
 }
 
 .time {
@@ -89,8 +93,6 @@ body {
   width: 300px;
   height: 100px;
   border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #1892ff;
   display: flex;
   justify-content: center;
   align-items: center;

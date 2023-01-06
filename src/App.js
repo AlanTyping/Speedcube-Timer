@@ -2,7 +2,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "./contexts/theme";
 import { Header } from './components/header'
-import { Cronometro } from './components/another/another';
 import { Timer } from './components/timer/Timer';
 
 function App() {
