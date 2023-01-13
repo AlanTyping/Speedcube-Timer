@@ -37,7 +37,7 @@ export function Timer() {
     let stSeconds = st.s;
 
     const handleKeyDown = (event) => {
-        if (event.key === ' ' && !isRunning) {
+        if (event.key && !isRunning) {
             setStIsRunning(true);
         }
         if (event.key === 'r') {
@@ -48,7 +48,7 @@ export function Timer() {
     };
 
     const handleKeyUp = (event) => {
-        if (event.key === ' ') {
+        if (event.key) {
             setStIsRunning(false)
         }
     }
