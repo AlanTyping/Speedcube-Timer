@@ -11,7 +11,7 @@ function Display(props) {
                 <h1>SPEEDCUBE TIMER</h1>
             </div>
             <div className='time-div-1'>
-                <p className={`${isOrange ? 'orange' : ''} ${isBlue ? 'blue' : ''}`}>
+                <p className={`${isOrange ? 'redd' : ''} ${isBlue ? 'greenn' : ''}`}>
                     {props.minutes < 10 ? "0" + props.minutes : props.minutes}:
                     {props.seconds < 10 ? "0" + props.seconds : props.seconds}:
                     {props.miliseconds}

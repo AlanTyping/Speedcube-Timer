@@ -4,12 +4,10 @@ import light from '../img/light.jpg';
 
 const themes = {
     dark: {
-        backgroundImage: `url(${dark})`,
         backgroundColor: 'black',
         color: 'white'
     },
     light: {
-        backgroundImage: `url(${light})`,
         backgroundColor: 'white',
         color: 'black'
     }

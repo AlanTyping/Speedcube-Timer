@@ -10,7 +10,7 @@ export const Blue = createContext();
 
 export function Timer() {
 
-    const [{theme}] = useContext(ThemeContext);
+    const [{isDark}] = useContext(ThemeContext);
 
     const [time, setTime] = useState({ mms: 0, ms: 0, s: 0, m: 0 });
     const [st, setSt] = useState({ s: 0 }); //set spacebar time
@@ -37,7 +37,7 @@ export function Timer() {
     let stSeconds = st.s;
 
     const handleKeyDown = (event) => {
-        if (event.key && !isRunning) {
+        if (event.key === ' ' && !isRunning) {
             setStIsRunning(true);
         }
         if (event.key === 'r') {
@@ -48,7 +48,7 @@ export function Timer() {
     };
 
     const handleKeyUp = (event) => {
-        if (event.key) {
+        if (event.key === ' ') {
             setStIsRunning(false)
         }
     }
@@ -108,7 +108,7 @@ export function Timer() {
     }
 
     useEffect(() => {
-        if (isRunning) {
+            if (isRunning) {
             setInitialitated(true);
             setIntervalo(setInterval(() => {
                 increase();
@@ -123,6 +123,7 @@ export function Timer() {
             }
         }
         return () => clearInterval(intervalo);
+        
     }, [isRunning]);
 
 
@@ -152,79 +153,153 @@ export function Timer() {
 
 
     useEffect(() => {
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('keyup', handleKeyUp);
+        if (showResults === false) {
+            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('keyup', handleKeyUp);
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.addEventListener('keyup', handleKeyUp);
         };
-    }, []);
+        }
+    }, [showResults]);
 
     return (
-        <div className='container' 
-        //  style={{ backgroundImage: theme.backgroundImage}}
-         >
-            {showResults ?
-                <div className='avrg'>
-                    <div className='result'>
-                        <div className='result-adjust'>
-                            <h2>Average</h2>
-                            <div className='avrg-result'>
-                                {results.m < 10 ? "0" + results.m : results.m}:
-                                {results.s < 10 ? "0" + results.s : results.s}:
-                                {results.ms}
-                                {results.mms}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='down-display'>
-                        <div className='button-container'>
-                            <div className='button' onClick={handleRestart}>Restart</div>
-                        </div>
-                        <div className='results-container-finish'>
-                            <h5>Solves</h5>
-                            {array.map((objeto, key) => {
-                                return (
-                                    <div className='results' key={key}>
-                                        <span>{key + 1}. </span>
-                                        {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
-                                        {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
-                                        {objeto.ms}
-                                        {objeto.mms}
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
+        <Orange.Provider value={isOrange}>
+            <Blue.Provider value={isBlue}>
+                { isDark ?
+                <div className='container'
+                //  style={{ backgroundImage: theme.backgroundImage}}
+                >
+                    <div className=
+                    {`${isOrange ? 'red' : ''} ${isBlue ? 'green' : ''} bar`}/>
 
-                </div>
-                : <>
-                    <Orange.Provider value={isOrange}>
-                        <Blue.Provider value={isBlue}>
+                    {showResults ?
+                        <div className='avrg'>
+                            <div className='result'>
+                                <div className='result-adjust'>
+                                    <h2>Average</h2>
+                                    <div className='avrg-result'>
+                                        {results.m < 10 ? "0" + results.m : results.m}:
+                                        {results.s < 10 ? "0" + results.s : results.s}:
+                                        {results.ms}
+                                        {results.mms}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='down-display'>
+                                <div className='button-container'>
+                                    <div className='button dark' onClick={handleRestart}>Restart</div>
+                                </div>
+                                <div className='results-container-finish'>
+                                    <h5>Solves</h5>
+                                    {array.map((objeto, key) => {
+                                        return (
+                                            <div className='results' key={key}>
+                                                <span>{key + 1}. </span>
+                                                {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
+                                                {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
+                                                {objeto.ms}
+                                                {objeto.mms}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+
+                        </div>
+                        : <>
                             <Display
                                 minutes={time.m}
                                 seconds={time.s}
                                 miliseconds={time.ms}
                                 mmiliseconds={time.mms}
                             />
-                        </Blue.Provider>
-                    </Orange.Provider>
-                    <div className='results-container'>
-                        {array.map((objeto, key) => {
-                            return (
-                                <div className='results' key={key}>
-                                    <span>{key + 1}. </span>
-                                    {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
-                                    {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
-                                    {objeto.ms}
-                                    {objeto.mms}
+
+                            <div className='results-container'>
+                                {array.map((objeto, key) => {
+                                    return (
+                                        <div className='results' key={key}>
+                                            <span>{key + 1}. </span>
+                                            {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
+                                            {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
+                                            {objeto.ms}
+                                            {objeto.mms}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </>
+                    }
+                    <div className={`${isOrange ? 'red' : ''} ${isBlue ? 'green' : ''} bar2`} />
+                </div> : (
+                    <div className='container'
+                    //  style={{ backgroundImage: theme.backgroundImage}}
+                    >
+                        <div className=
+                        {`${isOrange ? 'red' : ''} ${isBlue ? 'green' : ''} bar3`}/>
+    
+                        {showResults ?
+                            <div className='avrg'>
+                                <div className='result'>
+                                    <div className='result-adjust'>
+                                        <h2>Average</h2>
+                                        <div className='avrg-result'>
+                                            {results.m < 10 ? "0" + results.m : results.m}:
+                                            {results.s < 10 ? "0" + results.s : results.s}:
+                                            {results.ms}
+                                            {results.mms}
+                                        </div>
+                                    </div>
                                 </div>
-                            )
-                        })}
+                                <div className='down-display'>
+                                    <div className='button-container'>
+                                        <div className='button light' onClick={handleRestart}>Restart</div>
+                                    </div>
+                                    <div className='results-container-finish'>
+                                        <h5>Solves</h5>
+                                        {array.map((objeto, key) => {
+                                            return (
+                                                <div className='results' key={key}>
+                                                    <span>{key + 1}. </span>
+                                                    {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
+                                                    {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
+                                                    {objeto.ms}
+                                                    {objeto.mms}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+    
+                            </div>
+                            : <>
+                                <Display
+                                    minutes={time.m}
+                                    seconds={time.s}
+                                    miliseconds={time.ms}
+                                    mmiliseconds={time.mms}
+                                />
+    
+                                <div className='results-container'>
+                                    {array.map((objeto, key) => {
+                                        return (
+                                            <div className='results' key={key}>
+                                                <span>{key + 1}. </span>
+                                                {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
+                                                {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
+                                                {objeto.ms}
+                                                {objeto.mms}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </>
+                        }
+                        <div className={`${isOrange ? 'red' : ''} ${isBlue ? 'green' : ''} bar4`} />
                     </div>
-                </>
-            }
-        </div>
+                )}
+            </Blue.Provider>
+        </Orange.Provider >
     );
 }
 

@@ -1,8 +1,7 @@
-// import Header from "./components/header";
 import { useContext } from "react";
 import { ThemeContext } from "./contexts/theme";
-import { Header } from './components/header'
 import { Timer } from './components/timer/Timer';
+import { Header } from './components/header';
 
 function App() {
   const [{theme}] = useContext(ThemeContext);
