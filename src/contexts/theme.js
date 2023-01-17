@@ -1,6 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import dark from '../img/dark.png';
-import light from '../img/light.jpg';
 
 const themes = {
     dark: {
