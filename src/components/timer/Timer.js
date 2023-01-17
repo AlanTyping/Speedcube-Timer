@@ -219,7 +219,7 @@ export function Timer() {
                                 {array.map((objeto, key) => {
                                     return (
                                         <div className='results' key={key}>
-                                            <span>{key + 1}/5v  </span>
+                                            <span>{key + 1}/5 </span>
                                             {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
                                             {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
                                             {objeto.ms}
