@@ -4,11 +4,11 @@ import lightMode from '../img/lightMode.png';
 import darkMode from '../img/darkMode.png';
 
 export function Header() {
-  const [{theme, isDark}, toggleTheme] = useContext(ThemeContext);
+  const [{isDark}, toggleTheme] = useContext(ThemeContext);
   return (
     <div className={`Header ${isDark ? 'dark-header' : 'light-header'}`}>
       <div className="header-div" onClick={toggleTheme}>
-        {isDark ? <img src={lightMode} /> : <img src={darkMode} />}
+        {isDark ? <img src={lightMode} alt={lightMode}/> : <img src={darkMode} alt={darkMode}/>}
       </div>
     </div>
   );
