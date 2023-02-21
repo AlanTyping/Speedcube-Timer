@@ -28,6 +28,8 @@ export function Timer() {
 
   const [showResults, setShowResults] = useState(false);
 
+  const [block, setBlock] = useState(false);
+
   const [intervalo, setIntervalo] = useState();
   const [stInterval, setStInterval] = useState();
 
@@ -37,23 +39,10 @@ export function Timer() {
   let minutes = time.m;
 
   let stSeconds = st.s;
+  const space = ' ';
 
-  const handleKeyDown = (event) => {
-    if (event.key === ' ' && !isRunning) {
-      setStIsRunning(true);
-    }
-    if (event.key === 'r') {
-      setIsRunning(false);
-    } else {
-      setIsRunning(false);
-    }
-  };
 
-  const handleKeyUp = (event) => {
-    if (event.key === ' ') {
-      setStIsRunning(false)
-    }
-  }
+
 
   const changeSpaceTime = () => {
     stSeconds++;
@@ -109,6 +98,7 @@ export function Timer() {
 
   useEffect(() => {
     if (isRunning) {
+      setBlock(true);
       setInitialitated(true);
       setIntervalo(setInterval(() => {
         increase();
@@ -116,14 +106,12 @@ export function Timer() {
     }
     if (!isRunning && initialitated) {
       clearInterval(intervalo);
-      array.push(time);
       if (array.length >= 5) {
         setShowResults(true);
         results = avrg(array);
       }
     }
     return () => clearInterval(intervalo);
-
   }, [isRunning]);
 
 
@@ -132,16 +120,16 @@ export function Timer() {
       setIsOrange(true);
       setStInterval(setInterval(() => {
         changeSpaceTime();
-        if (stSeconds >= 1) {
+        if (stSeconds >= 50) {
           setIsOrange(false)
           setIsBlue(true);
         }
-      }, 1000));
+      }, 10));
     } else if (!stIsRunning) {
       setIsOrange(false);
       setIsBlue(false);
       clearInterval(stInterval);
-      if (stSeconds >= 1) {
+      if (stSeconds >= 50) {
         setTime({ mms: 0, ms: 0, s: 0, m: 0 });
         setIsRunning(true)
       }
@@ -151,6 +139,22 @@ export function Timer() {
     return () => clearInterval(stInterval);
   }, [stIsRunning]);
 
+  const handleKeyUp = (event) => {
+    setBlock(false);
+    if (event.key === space) {
+      setStIsRunning(false)
+    }
+  }
+
+  const handleKeyDown = (event) => {
+    if (isRunning) {
+      setIsRunning(false)
+      array.push(time);
+    }
+    if (event.key === space && block === false) {
+      setStIsRunning(true);
+    }
+  };
 
   useEffect(() => {
     if (showResults === false) {
@@ -161,22 +165,25 @@ export function Timer() {
         window.addEventListener('keyup', handleKeyUp);
       };
     }
-  }, [showResults]);
+  }, [showResults, isRunning, time, block]);
 
   return (
     <Orange.Provider value={isOrange}>
       <Blue.Provider value={isBlue}>
-        <div className='container'>
-          <div className={`${isOrange ? 'red' : ''} ${isBlue ? 'green' : ''} ${isDark ? 'bar' : 'bar3'}`} />
-          {showResults ? <Results array={array} handleRestart={handleRestart} results={results} isDark={isDark} /> : 
-          <Playing array={array}>
-            <Display
+        <div className='container'
+        //  style={{ backgroundImage: theme.backgroundImage}}
+        >
+          <div className=
+          {`${isOrange ? 'red' : ''} ${isBlue ? 'green' : ''} ${isDark ? 'bar' : 'bar3'}`} />
+          {showResults ?
+            <Results array={array} handleRestart={handleRestart} results={results} isDark={isDark} /> :
+            <Playing array={array}>
+              <Display
                 minutes={time.m}
                 seconds={time.s}
                 miliseconds={time.ms}
                 mmiliseconds={time.mms}
-            />
-          </Playing>
+              /></Playing>
           }
           <div className={`${isOrange ? 'red' : ''} ${isBlue ? 'green' : ''} ${isDark ? 'bar2' : 'bar4'}`} />
         </div>

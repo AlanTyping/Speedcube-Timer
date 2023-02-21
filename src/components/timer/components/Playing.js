@@ -1,5 +1,4 @@
 import React from 'react';
-import Display from '../display';
 
 export default function Playing({ children, array }) {
     return (

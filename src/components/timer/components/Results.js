@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Results({ results, array, handleRestart, isDark }) {
+export default function Results({ results, array, handleRestart, isDark}) {
     return (
         <div className='avrg'>
             <div className='result'>
