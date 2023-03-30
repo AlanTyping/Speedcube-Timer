@@ -74,18 +74,15 @@ export function Timer() {
   const inspectionOn = () => {
     setInterval(() => {
       inspectionTime--
-      console.log(inspectionTime);
     }, 1000)
   }
   // push array
 
   const numberToObject = (time) => {
-    console.log(time);
 
     const timeToString = time.toString();
     const data = timeToString.length > 1 ? timeToString.slice(0, -1).split("").map((e) => Math.trunc(e)) : timeToString
 
-    console.log(time + '2')
     if (data.length === 1) return { m: 0, s: 0, ms: 0, mms: parseInt(`${data[0] === undefined ? 0 : data[0]}`) };
     if (data.length === 2) return { m: 0, s: 0, ms: data[0], mms: data[1] };
     if (data.length === 3) return { m: 0, s: data[0], ms: data[1], mms: data[2] };
