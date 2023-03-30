@@ -1,14 +1,14 @@
 import React from 'react'
 
-export default function Results({ results, array, handleRestart, isDark}) {
+export default function Results({ results, array, handleRestart, isDark }) {
     return (
         <div className='avrg'>
             <div className='result'>
                 <div className='result-adjust'>
                     <h2>Average</h2>
                     <div className='avrg-result'>
-                        {results.m < 10 ? "0" + results.m : results.m}:
-                        {results.s < 10 ? "0" + results.s : results.s}:
+                        {results.m === 0 ? '' : `${results.m}:`}
+                        {results.s === 0 ? '0' : results.s}.
                         {results.ms}
                         {results.mms}
                     </div>
@@ -24,8 +24,8 @@ export default function Results({ results, array, handleRestart, isDark}) {
                         return (
                             <div className='results' key={key}>
                                 <span>{key + 1}. </span>
-                                {objeto.m < 10 ? "0" + objeto.m : objeto.m}:
-                                {objeto.s < 10 ? "0" + objeto.s : objeto.s}:
+                                {objeto.m === 0 ? '' : `${objeto.m}:`}
+                                {objeto.s === 0 ? '0' : objeto.s}.
                                 {objeto.ms}
                                 {objeto.mms}
                             </div>

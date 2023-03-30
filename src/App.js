@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "./contexts/theme";
-import { Timer } from './components/timer/Timer';
+import { MemoizedComponent } from "./components/timer/Timer";
 import { Header } from './components/header';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       color: theme.color,
       }}>
       <Header />
-      <Timer />
+      <MemoizedComponent />
     </div>
   );
 }
