@@ -196,6 +196,7 @@ body {
   width: 55%;
   display: flex;
   justify-content: right;
+  position: relative;
   align-items: center;
 }
 
@@ -281,6 +282,18 @@ body {
 
 .redd {
   color: rgba(255, 69, 69, 0.9);
+}
+
+@media (min-width: 1300) {
+  .button {
+    margin-right: 20x;
+  }
+}
+
+@media (min-width: 1690px) {
+  .button {
+    margin-right: 27px;
+  }
 }
 
 
